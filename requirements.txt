@@ -4,5 +4,4 @@ Flask-Compress==1.15
 gunicorn==22.0.0
 googletrans==4.0.0-rc1
 gruut-ipa==0.13.0  # Thay eng-to-ipa
-
 gtts==2.5.3
