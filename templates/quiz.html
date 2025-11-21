@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Quiz • Chiến Dịch #{{ c.id }}{% endblock %}
+{% block content %}
+<h1>Quiz Ôn Tập Từ Đã Học</h1>
+<div class="stats">Đã học: {{ learned_count }} từ</div>
+
+{% if score and 'XUẤT SẮC' in score %}
+    <canvas id="confetti-canvas"></canvas>
+    <h2 style="font-size:4rem; color:#FFD700; text-shadow:0 0 30px gold; text-align:center;">
+        PERFECT!!!
+    </h2>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+    const duration = 10 * 1000, end = Date.now() + duration;
+    (function frame() {
+        confetti({ particleCount: 8, angle: 60, spread: 55, origin: { x: 0 } });
+        confetti({ particleCount: 8, angle: 120, spread: 55, origin: { x: 1 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
+    }());
+    </script>
+{% endif %}
+
+{% if score %}
+    <h2 style="text-align:center; color:#FF1493; font-size:2.8rem; margin:30px 0;">{{ score }}</h2>
+    <div style="text-align:center;">
+        <button class="btn" onclick="location.href='/quiz/{{ c.id }}'">Chơi Lại Quiz</button>
+    </div>
+{% elif learned_count < 5 %}
+    <p style="text-align:center; font-size:1.5rem; color:#666;">
+        Cần học ít nhất 5 từ để mở Quiz!<br>
+        Hiện tại bạn đã học: {{ learned_count }} từ
+    </p>
+{% else %}
+    <form method="POST">
+        {% for item in q %}
+        <div style="background:#FFF0F5; padding:25px; border-radius:20px; margin:25px 0;">
+            <p class="word" style="font-size:2rem; text-align:center; margin-bottom:20px;">{{ item.w }}</p>
+            <input type="hidden" name="correct_{{ item.w }}" value="{{ item.vn }}">
+            {% for opt in item.opts %}
+            <label class="option" style="display:block; margin:12px 0; padding:15px; background:white; border-radius:15px; cursor:pointer;">
+                <input type="radio" name="answer_{{ item.w }}" value="{{ opt }}" required style="transform:scale(1.4); margin-right:15px;">
+                {{ opt }}
+            </label>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn" style="width:100%; padding:20px; font-size:1.6rem;">Nộp Bài!</button>
+    </form>
+{% endif %}
+
+<div style="margin-top:50px; text-align:center;">
+    <button class="btn" onclick="location.href='/'">Trang Chủ</button>
+    <button class="btn" onclick="location.href='/lesson/{{ c.id }}'">Quay Lại Học</button>
+</div>
+{% endblock %}
