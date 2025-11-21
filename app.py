@@ -314,6 +314,15 @@ def audio(w):
         from gtts import gTTS
         gTTS(w, lang='en').save(path)
     return send_file(path)
+@functools.lru_cache(maxsize=6000)
+def get_ipa(word):
+    try:
+        from gruut_ipa import convert
+        return convert(word, lang='en-us')  # Hoặc 'en-gb' cho Anh-Anh
+    except Exception as e:
+        print(f"IPA error for '{word}': {e}")
+        return f"/{word}/"  # Fallback đơn giản
+
 
 if __name__ == '__main__':
     app.run(debug=False, threaded=True)

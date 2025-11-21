@@ -3,5 +3,5 @@ Flask-SQLAlchemy==3.1.1
 Flask-Compress==1.15
 gunicorn==22.0.0
 googletrans==4.0.0-rc1
-eng-to-ipa==1.0.0
+gruut-ipa==2.2.1  # Thay eng-to-ipa
 gtts==2.5.3
