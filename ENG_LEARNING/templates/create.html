@@ -1,0 +1,23 @@
+<!-- templates/create.html -->
+{% extends "base.html" %}
+{% block title %}TẠO CHIẾN DỊCH{% endblock %}
+{% block content %}
+<h1>TẠO CHIẾN DỊCH HỌC TẬP TỪ MỚI NÀO</h1>
+<form method="POST" style="text-align:center; margin:40px 0;">
+    <p><label style="font-size:1.4rem;">Số từ mới mỗi ngày:</label><br>
+        <input type="number" name="x" min="5" max="50" value="15" required style="padding:14px; font-size:1.3rem; width:220px; border-radius:15px; border:3px solid #FF69B4; margin:15px;">
+    </p>
+
+    <p><label style="font-size:1.4rem;">Chọn cấp độ từ vựng:</label><br>
+        <select name="level" required style="padding:14px; font-size:1.3rem; width:260px; border-radius:15px; border:3px solid #FF69B4; margin:15px;">
+            <option value="beginner">Beginner (1000 từ cơ bản)</option>
+            <option value="elementary">Elementary (1000 từ giao tiếp)</option>
+            <option value="intermediate" selected>Intermediate (1500 từ trung cấp)</option>
+            <option value="advanced">Advanced (1500 từ nâng cao)</option>
+        </select>
+    </p>
+
+    <button type="submit" class="btn" style="padding:16px 40px; font-size:1.4rem;">Bắt Đầu Chiến Dịch!</button>
+</form>
+<button class="btn" onclick="location.href='/'">Quay Lại</button>
+{% endblock %}
